@@ -15,7 +15,7 @@ export default function ProductCard({ product, onAddToCart }) {
   const gaugeSpec = isFanBox ? "16-Gauge CRCA" : "18-Gauge Zinc";
   const depthSpec = isFanBox ? "Depth: 65mm" : "Depth: 45mm";
   const knockouts = isFanBox ? "4× 25mm Knockouts" : "2× 20mm Knockouts";
-
+  
   return (
     <article className="editorial-product-card">
       {/* Square-cornered media wrapper */}

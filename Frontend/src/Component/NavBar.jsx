@@ -52,8 +52,30 @@ export default function NavBar() {
 
         {/* Auth & Primary CTA */}
         <div className="navbar-actions">
-          <a href="/login" className="navbar-auth-link">Login</a>
-          <a href="/signup" className="navbar-auth-link">Signup</a>
+          {localStorage.getItem("token") ? (
+            <>
+              <Link to="/store" className="navbar-auth-link" style={{ fontWeight: 600 }}>
+                Store Catalog
+              </Link>
+              <button
+                type="button"
+                className="navbar-auth-link"
+                style={{ cursor: "pointer", background: "none", border: "none" }}
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  localStorage.removeItem("user");
+                  window.location.href = "/login";
+                }}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="navbar-auth-link">Login</Link>
+              <Link to="/signup" className="navbar-auth-link">Signup</Link>
+            </>
+          )}
           <a
             href="#quote-section"
             onClick={handleScrollToQuote}
@@ -108,20 +130,38 @@ export default function NavBar() {
           >
             SpotBox Series
           </a>
-          <a
-            href="/login"
-            className="navbar-mobile-link"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Account Login
-          </a>
-          <a
-            href="/signup"
-            className="navbar-mobile-link"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Create Account
-          </a>
+          {localStorage.getItem("token") ? (
+            <button
+              type="button"
+              className="navbar-mobile-link"
+              style={{ textAlign: "left", cursor: "pointer", background: "none", border: "none" }}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+                window.location.href = "/login";
+              }}
+            >
+              Logout Account
+            </button>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="navbar-mobile-link"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Account Login
+              </Link>
+              <Link
+                to="/signup"
+                className="navbar-mobile-link"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Create Account
+              </Link>
+            </>
+          )}
           <a
             href="#quote-section"
             className="btn-pill btn-dark"
