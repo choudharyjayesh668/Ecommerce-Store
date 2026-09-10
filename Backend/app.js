@@ -7,6 +7,7 @@ const cors=require("cors");
 const JWT = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
+app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(
@@ -28,7 +29,20 @@ main()
         })
     })
     .catch(error=>console.log(error));
+
+const Product=require("./models/product");
 //Main Route
-app.get("/", (req, res) => {
-    
+app.get("/api/products", async (req, res) => {
+    try{
+        const allProduct=await Product.find({});
+        console.log(allProduct);
+        res.status(200).json({
+            message:"Data Received to React APP",
+            data:allProduct,
+        });
+    }catch(error){
+        res.status(500).json({
+            message:"internal Server Error at Sending Product data to React GET/api/products"
+        })
+    }
 });
