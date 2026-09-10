@@ -1,4 +1,4 @@
-import img1 from "../assets/IMG1.JPG";
+import img1 from "../../../Backend/public/images/IMG1.JPG"
 
 export default function HeroSection() {
   const scrollToProducts = (e) => {

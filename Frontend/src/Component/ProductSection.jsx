@@ -1,11 +1,23 @@
-import { useState } from "react";
-import products from "../Products/products";
+import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-
+import axios from "axios"
 export default function ProductSection() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [toastMessage, setToastMessage] = useState("");
-
+  const [products,setProduct]=useState([]);
+  useEffect(()=>{
+    const fetchProducts=async ()=>{
+      try{
+        const response=await axios.get(
+          `${import.meta.env.VITE_API}/api/products`
+        );
+        setProduct(response.data.data);
+      }catch(error){
+        console.log(error);
+      }
+    }
+    fetchProducts();
+  },[])
   const filteredProducts = products.filter((p) => {
     if (activeCategory === "all") return true;
     return p.category.toLowerCase() === activeCategory.toLowerCase();
@@ -64,7 +76,7 @@ export default function ProductSection() {
         <div className="editorial-product-grid">
           {filteredProducts.map((product) => (
             <ProductCard
-              key={product.id}
+              key={product._id}
               product={product}
               onAddToCart={handleAddToCart}
             />

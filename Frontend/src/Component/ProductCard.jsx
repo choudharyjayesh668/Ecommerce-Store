@@ -21,7 +21,7 @@ export default function ProductCard({ product, onAddToCart }) {
       {/* Square-cornered media wrapper */}
       <div className="card-media-wrapper">
         <img
-          src={product.image}
+          src={`${import.meta.env.VITE_API}${product.image}`}
           alt={product.name}
           className="card-product-img"
           loading="lazy"
